@@ -11,6 +11,24 @@ Projeto final do Codenation Python Web 2
 - José Miguel de Brito Henriques
 - Moisés dos Santos Filho
 
+## Como rodar o projeto:
+
+* Clone esse repositório:  
+```git clone https://github.com/CristianZatt/GCT.git ```  
+```cd GCT ```
+* Crie um virtualenv com Python 3:  
+```python3 -m venv .venv ```
+* Ative o virtualenv:  
+```source .venv/bin/activate ```  
+* Instale as dependências:   
+```pip install -r requirements.txt ```
+* Rode as migrações:  
+```python manage.py migrate ```
+* Rode o servidor:   
+```python manage.py runserver ```
+* Abir no navegado o endereço: http://127.0.0.1:8000/
+
+
 # Overview: Gestão de comissões Televendas
 
 ## Objetivo
