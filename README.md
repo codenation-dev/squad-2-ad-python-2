@@ -11,6 +11,11 @@ Projeto final do Codenation Python Web 2
 - José Miguel de Brito Henriques
 - Moisés dos Santos Filho
 
+## Fluxograma e Diagrama de classes
+* [Fluxograma](https://drive.google.com/file/d/1XXlDyYmpEKeIc670Aavb47IdDDeqCt5y/view?usp=sharing)
+
+* [Diagrama de classes](https://drive.google.com/file/d/1dMQDI9ggisALdu2eRUpBhYkspkff-y4t/view)
+
 ## Como rodar o projeto:
 
 * Clone esse repositório:  
@@ -47,7 +52,7 @@ Cadastro dos vendedores de telemarketing que irão receber comissões. Para o ca
 
 - Cadastrar plano de comissões
 
-Cadastro dos planos de comissões para que os vendedores possam escolher qual o melhor plano para eles. Para cadastrar um novo plano é necessário definir qual a **porcentagem menor**, o **valor mínimo** que será necessário para considerar a porcentagem de comissão maior e a **porcentagem maior**. Exemplo: se o vendedor vender até 5000 R$ ele vai receber 2% de comissão, caso o valor seja acima de 5000 R$ ele irá receber 5% de comissão.
+Cadastro dos planos de comissões para que os vendedores possam escolher qual o melhor plano para eles. Para cadastrar um novo plano é necessário definir qual a **porcentagem menor**, o **valor mínimo** que será necessário para considerar a porcentagem de comissão maior e a **porcentagem maior**. **Uma vez definido o plano, não deve ser possível alterá-lo** Exemplo: se o vendedor vender até 5000 R$ ele vai receber 2% de comissão, caso o valor seja acima de 5000 R$ ele irá receber 5% de comissão.
 
 - Registrar vendas mensais
 
