@@ -1,8 +1,12 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+from django.core.exceptions import ValidationError
+from .validators import validate_percent_max_menor_que_percent_min
 
 # Create your models here.
+
+
 class PlanoComissoes(models.Model):
     id_plano = models.AutoField(
         primary_key=True, verbose_name="Código do plano")
@@ -20,6 +24,9 @@ class PlanoComissoes(models.Model):
         max_digits=5, decimal_places=2, verbose_name="% máximo",
         validators=[MinValueValidator(Decimal('0.0'))]
     )
+
+    def clean(self):
+        validate_percent_max_menor_que_percent_min(self.percent_max, self.percent_min)
 
     class Meta:
         ordering = ["descricao"]

@@ -30,3 +30,17 @@ class PlanoModelTests(TestCase):
             self.assertIsNotNone(validation_errors['valor_minimo'])
             self.assertIsNotNone(validation_errors['percent_min'])
             self.assertIsNotNone(validation_errors['percent_max'])
+
+    def test_nao_deve_criar_plano_com_percentual_max_menor_que_percentual_minimo(self):
+        """
+        Deve discriminar um erro ao tentar salvar plano com %max < %min
+        """
+        planoComissao = PlanoComissoes(descricao='teste', valor_minimo=Decimal('1.0'), percent_min=Decimal(
+            '2.0'), percent_max=Decimal('1.0'))
+
+        try:
+            planoComissao.clean()
+            self.fail('Deveria ter validado valores percentuais')
+        except ValidationError as percent_error:
+            self.assertEqual(
+                percent_error.message, 'O percentual mínimo é maior que o percentual máximo.')
