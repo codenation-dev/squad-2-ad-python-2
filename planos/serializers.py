@@ -9,7 +9,7 @@ class PlanosSerializer(serializers.ModelSerializer):
     def validate(self, data):
         percent_max = data['percent_max']
         percent_min = data['percent_min']
-        validate_percent_max_maior_que_percent_min(percent_max, percent_min)
+        validate_percent_max_menor_que_percent_min(percent_max, percent_min)
 
     class Meta:
         model = PlanoComissoes
