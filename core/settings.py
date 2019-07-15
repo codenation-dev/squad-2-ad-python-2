@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Apps do sistema
     "planos",
     "vendedores",
+    "vendas",
 ]
 
 MIDDLEWARE = [
