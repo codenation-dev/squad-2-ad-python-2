@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from planos.models import PlanoComissoes
 from .validators import validate_CPF
 
@@ -11,7 +12,9 @@ class Vendedor(models.Model):
     )
     endereco = models.TextField(null=False, verbose_name="Endereço")
     telefone = models.CharField(max_length=14, null=False, verbose_name="Telefone")
-    idade = models.PositiveSmallIntegerField(null=False, verbose_name="Idade")
+    idade = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0)], null=False, verbose_name="Idade"
+    )
     email = models.EmailField(null=False, verbose_name="E-mail")
     plano = models.ForeignKey(
         PlanoComissoes, on_delete=models.CASCADE, verbose_name="Plano de Comissão"
