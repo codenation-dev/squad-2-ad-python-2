@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from planos.views import PlanosViewSet
+from vendedores.views import VendedoresViewSet
+from vendas.views import VendasViewSet
 
 router = routers.DefaultRouter()
 router.register(r"plano", PlanosViewSet)
+router.register(r"vendedor", VendedoresViewSet)
+router.register(r"venda", VendasViewSet)
 
 urlpatterns = [path("admin/", admin.site.urls), path("api/", include(router.urls))]

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django_extensions",
     # Apps do sistema
     "planos",
+    "vendedores",
+    "vendas",
 ]
 
 MIDDLEWARE = [
