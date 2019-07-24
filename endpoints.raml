@@ -1,0 +1,129 @@
+#%RAML 1.0
+---
+title: GCT (Gestão de comissões Televendas) API
+baseUri: http://heroku.com/x
+version: v1
+
+/sellers:
+    post:
+        description: Register a new seller.
+        queryParameters:
+            name:
+                description: Name of the seller
+                example: João Pedro" 
+                required: true
+                type: string
+            address:
+                description: Adress location
+                example: Rua abcd, 123 
+                required: true
+                type: string
+            phone:
+                description: Phone number
+                example: 48012345678
+                required: true
+                type: integer
+            birthday:
+                description: Birthday date
+                example: 31/05/1990
+                required: true
+                type: string
+            email:
+                description: e-mail adress
+                example: ab@cd.com
+                required: true
+                type: string
+            cpf:
+                description: CPF number
+                example: 11111111111
+                required: true
+                type: integer
+            commission_plan:
+                description: Comission Plan
+                example: 1
+                required: true
+                type: integer
+        responses:
+          201:
+            body:
+              application/json:
+                example: { "id": 100 }
+
+/comissions:
+    post:
+        description: Register a new comission plan.
+        queryParameters:
+            lower_percentage:
+                description: smaller percentage, in case the minimun value is not reached
+                example: 2.5
+                required: true
+                type: number
+            min_value:
+                description: Minimum value for the use of upper percentage
+                example: 5000.00 
+                required: true
+                type: number
+            upper_percentage:
+                description: Bigger percentage in case the min value is reached
+                example: 10.50
+                required: true
+                type: number
+        responses:
+          201:
+            body:
+              application/json:
+                example: { "id": 10 }
+
+/month_comission:
+    post:
+        description: Register the month sell for the seller and return the comission value
+        queryParameters:
+            seller:
+                description: Id from the seller
+                example: 10
+                required: true
+                type: integer
+            amount:
+                description: Total salles from the month
+                example: 10000.00 
+                required: true
+                type: number
+            month:
+                description: Month being registered
+                example: 2
+                required: true
+                type: integer
+        responses:
+          200:
+            body:
+              application/json:
+                example: {“id”: 100, “comission”: 300.89}
+
+/check_commision:
+    post:
+        description: Check if the seller should be notifyed for not reaching the expected value of sells 
+        queryParameters:
+            seller:
+                description: Id from the seller
+                example: 10
+                required: true
+                type: integer
+            amount:
+                description: Total salles from the month
+                example: 1000.65 
+                required: true
+                type: number
+        responses:
+          200:
+            body:
+              application/json:
+                example: {“should_notify”: true}
+
+/sellers/2:
+    get:
+        description: Get the list of sellers ordered by comission value
+        responses:
+          200:
+            body:
+              application/json:
+                example: [{“name”: “Vendedor1”, “id”: 10, “comission”: 1000.00}, {“name”: “Vendedor2”, “id”: 15, “comission”: 900.00}]
