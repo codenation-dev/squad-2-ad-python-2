@@ -19,10 +19,15 @@ from rest_framework import routers
 from planos.views import PlanosViewSet
 from vendedores.views import VendedoresViewSet
 from vendas.views import VendasViewSet
+from vendas.views import check_comission
 
 router = routers.DefaultRouter()
 router.register(r"plano", PlanosViewSet)
 router.register(r"vendedor", VendedoresViewSet)
 router.register(r"venda", VendasViewSet)
 
-urlpatterns = [path("admin/", admin.site.urls), path("api/", include(router.urls))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
+    path("api/check_comission/", check_comission),
+]
