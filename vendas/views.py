@@ -12,7 +12,11 @@ class VendasViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["POST"])
+<<<<<<< HEAD
 def notificar_vededores(request):
+=======
+def check_comission(request):
+>>>>>>> 8ff6c50743b7ce73891b923352bc385a2956b1ca
 
     vendedor = request.query_params["vendedor"]
     valor = request.query_params["valor"]
@@ -24,7 +28,13 @@ def notificar_vededores(request):
     media = float(total / len(vendas)) * 0.9
 
     if media < float(valor):
+<<<<<<< HEAD
         return Response({"notificar": True})
     else:
         return Response({"notificar": False})
+=======
+        return Response({"notificar": False})
+    else:
+        return Response({"notificar": True})
+>>>>>>> 8ff6c50743b7ce73891b923352bc385a2956b1ca
 
