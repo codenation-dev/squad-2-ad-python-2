@@ -29,5 +29,5 @@ router.register(r"venda", VendasViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("api/notificar_vededores/", notificar_vededores),
+    path("api/checar_comissao/", notificar_vededores),
 ]
