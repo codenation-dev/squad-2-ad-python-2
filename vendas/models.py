@@ -45,6 +45,7 @@ class Venda(models.Model):
     class Meta:
         ordering = ["mes", "id_vendedor"]
         verbose_name_plural = "Vendas"
+        unique_together = ("id_vendedor", "mes")
 
     def __str__(self):
         return f"{self.mes} - {self.id_vendedor}"
