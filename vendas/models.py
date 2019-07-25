@@ -2,8 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 from vendedores.models import Vendedor
-
-# Create your models here.
+from .validators import calcular_comissao
 
 
 class Venda(models.Model):
