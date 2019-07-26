@@ -12,7 +12,12 @@ class VendasViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["POST"])
-def notificar_vededores(request):
+def notificar_vendedores(request):
+    """
+    Dado o ID de um vendedor o seu último valor de vendas, recupera as vendas dos últimos cinco meses.
+    É então realizado o cálculo da média ponderada levando em consideração as maiores comissões como com o maior peso.
+    Por fim, é realizado um buffer na média de 10% do seu valor, caso este seja menor que o valor base, é retornado que o vendedor deve ser notificado.
+    """
 
     vendedor = request.query_params["vendedor"]
     valor = request.query_params["valor"]
@@ -28,4 +33,3 @@ def notificar_vededores(request):
         return Response({"notificar": True})
     else:
         return Response({"notificar": False})
-

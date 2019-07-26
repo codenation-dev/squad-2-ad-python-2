@@ -19,7 +19,7 @@ from rest_framework import routers
 from planos.views import PlanosViewSet
 from vendedores.views import VendedoresViewSet
 from vendas.views import VendasViewSet
-from vendas.views import notificar_vededores
+from vendas.views import notificar_vendedores
 
 router = routers.DefaultRouter()
 router.register(r"plano", PlanosViewSet)
@@ -29,5 +29,5 @@ router.register(r"venda", VendasViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("api/checar_comissao/", notificar_vededores),
+    path("api/checar_comissao/", notificar_vendedores),
 ]
