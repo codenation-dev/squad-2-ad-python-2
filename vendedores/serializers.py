@@ -12,6 +12,11 @@ class VendedoresSerializer(serializers.ModelSerializer):
 
 
 class ComissaoMensalSerializer(serializers.ModelSerializer):
+    comissao = serializers.SerializerMethodField()
     class Meta:
         model = Venda
         fields = ("id_vendedor", "mes", "comissao")
+
+
+    def get_comissao(self, isinstance):
+        return (isinstance.comissao.url if isinstance.comissao else 0.00)
