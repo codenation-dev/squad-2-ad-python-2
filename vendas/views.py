@@ -17,7 +17,8 @@ def notificar_vededores(request):
     vendedor = request.query_params["vendedor"]
     valor = request.query_params["valor"]
 
-    vendas = Venda.objects.filter(id_vendedor=vendedor).order_by("-comissao")[:5]
+    vendas = Venda.objects.filter(
+        id_vendedor=vendedor).order_by("-mes", "-comissao")[:5]
     total = 0
     for cont, venda in enumerate(vendas):
         total = total + (len(vendas) - cont) * venda.comissao
