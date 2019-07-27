@@ -2,8 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 from vendedores.models import Vendedor
-
-# Create your models here.
+from .validators import calcular_comissao
 
 
 class Venda(models.Model):
@@ -17,7 +16,7 @@ class Venda(models.Model):
         (7, "Julho"),
         (8, "Agosto"),
         (9, "Setembro"),
-        (10, "Otubro"),
+        (10, "Outubro"),
         (11, "Novembro"),
         (12, "Dezembro"),
     )
@@ -49,3 +48,7 @@ class Venda(models.Model):
 
     def __str__(self):
         return f"{self.mes} - {self.id_vendedor}"
+
+    def save(self, *args, **kwargs):
+        self.comissao = calcular_comissao(self.valor, self.id_vendedor.plano)
+        super(Venda, self).save(*args, **kwargs)
