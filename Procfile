@@ -1,1 +1,1 @@
-web: gunicorn gct-squad2.wsgi
+web: gunicorn squad-2-ad-python-2.wsgi
