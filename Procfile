@@ -1,0 +1,1 @@
+web: gunicorn gct-squad2.wsgi
