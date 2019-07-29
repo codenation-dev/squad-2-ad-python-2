@@ -2,8 +2,6 @@ from rest_framework import serializers
 from .models import Vendedor
 from vendas.models import Venda
 
-# Serializers define the API representation.
-
 
 class VendedoresSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +16,5 @@ class ComissaoMensalSerializer(serializers.ModelSerializer):
         model = Venda
         fields = ("nome", "id_vendedor", "comissao")
 
-
     def get_comissao(self, isinstance):
-        return (isinstance.comissao.url if isinstance.comissao else 0.00)
+        return (isinstance.comissao if isinstance.comissao else 0.00)
