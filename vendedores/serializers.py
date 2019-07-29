@@ -12,10 +12,11 @@ class VendedoresSerializer(serializers.ModelSerializer):
 
 
 class ComissaoMensalSerializer(serializers.ModelSerializer):
+    nome = serializers.CharField(source='id_vendedor.nome')
     comissao = serializers.SerializerMethodField()
     class Meta:
         model = Venda
-        fields = ("id_vendedor", "mes", "comissao")
+        fields = ("nome", "id_vendedor", "comissao")
 
 
     def get_comissao(self, isinstance):
