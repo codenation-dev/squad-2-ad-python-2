@@ -1,0 +1,130 @@
+#%RAML 1.0
+---
+title: GCT (Gestão de comissões Televendas) API
+baseUri: https://squad-2-ad-python-2.herokuapp.com
+version: v1
+
+/api/vendedor:
+    post:
+        description: Registrar novo vendedor
+        queryParameters:
+            nome:
+                description: Nome do vendedor
+                example: João Pedro" 
+                required: true
+                type: string
+            cpf:
+                description: CPF number
+                example: 11111111111
+                required: true
+                type: integer
+            endereco:
+                description: Endereço completo
+                example: Rua abcd, 123 
+                required: true
+                type: string
+            idade:
+                description: Idade
+                example: 31
+                required: true
+                type: integer
+            email:
+                description: Endereço de e-mail
+                example: ab@cd.com
+                required: true
+                type: string
+            plano:
+                description: Plano de Comissão
+                example: 1
+                required: true
+                type: integer
+        responses:
+          201:
+            body:
+              application/json:
+                example: {"id_vendedor": 3,"nome": "Cristian Zatt","cpf": "02379130035","endereco": "Rua X, 33","idade": 23,"email": "cri@gmail.com","plano": 1}
+
+/api/plano:
+    post:
+        description: Registrar novo plano de comissão
+        queryParameters:
+            descricao:
+                description: Nome ou descrição de um plano
+                example: Plano master grupo X
+                required: true
+                type: string
+            valor_minimo:
+                description: Valor mínimo para utilizar a porcentagem máxima
+                example: 5000.00 
+                required: true
+                type: number
+            percent_min:
+                description: Porcentagem mínima, caso o valor mínimo não seja atingido
+                example: 2.5
+                required: true
+                type: number
+            percent_max:
+                description: Porcentagem máxima, caso o valor mínimo seja atingido
+                example: 10.50
+                required: true
+                type: number
+        responses:
+          201:
+            body:
+              application/json:
+                example: {"id_plano": 2,"descricao": "tyuu","valor_minimo": "300.00","percent_min": "5.00","percent_max": "7.00"}
+
+/api/venda:
+    post:
+        description: Registra as vendas de um mês de um vendedor
+        queryParameters:
+            id_vendedor:
+                description: Id do vendedor
+                example: 10
+                required: true
+                type: integer
+            mes:
+                description: Mês de registro
+                example: 2
+                required: true
+                type: integer
+            valor:
+                description: Valor total das vendas
+                example: 10000.00 
+                required: true
+                type: number
+        responses:
+          200:
+            body:
+              application/json:
+                example: {"id_venda": 5,"id_vendedor": 2,"mes": 3,"valor": "1333.00"
+}
+
+/api/checar_comissao:
+    post:
+        description: Dado o ID de um vendedor o seu último valor de vendas, recupera as vendas dos últimos cinco meses. É então realizado o cálculo da média ponderada levando em consideração as maiores comissões como com o maior peso. Por fim, é realizado um buffer na média de 10% do seu valor, caso este seja menor que o valor base, é retornado que o vendedor deve ser notificado 
+        queryParameters:
+            vendedor:
+                description: Id do vendedor
+                example: 10
+                required: true
+                type: integer
+            valor:
+                description: Valor total de vendas de um mês
+                example: 1000.65 
+                required: true
+                type: number
+        responses:
+          200:
+            body:
+              application/json:
+                example: {"notificar": True}
+
+/api/comissoes/:
+    get:
+        description: Traz os vendedores do mês organizados pelo valor da comissão
+        responses:
+          200:
+            body:
+              application/json:
+                example: [{"nome": "João Paulo","id_vendedor": 1,"comissao": 500.0},{"nome": "Pedro Nunes","id_vendedor": 2,"comissao": 35.6}]
