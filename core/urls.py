@@ -17,12 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from planos.views import PlanosViewSet
-from vendedores.views import VendedoresViewSet
+from vendedores.views import VendedoresViewSet, ComissoesViewSet
 from vendas.views import VendasViewSet
+from vendas.views import notificar_vendedores
 
 router = routers.DefaultRouter()
 router.register(r"plano", PlanosViewSet)
 router.register(r"vendedor", VendedoresViewSet)
-router.register(r"venda", VendasViewSet)
+router.register(r"venda", VendasViewSet, base_name='venda')
+router.register(r"comissoes/(?P<mes>[0-9]+)", viewset=ComissoesViewSet, base_name='comissoes')
 
-urlpatterns = [path("admin/", admin.site.urls), path("api/", include(router.urls))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
+    path("api/checar_comissao/", notificar_vendedores),
+]
