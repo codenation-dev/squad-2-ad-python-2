@@ -4,33 +4,13 @@ title: GCT (Gestão de comissões Televendas) API
 baseUri: http://heroku.com/x
 version: v1
 
-/sellers:
+/api/vendedor:
     post:
-        description: Register a new seller.
+        description: Registrar novo vendedor
         queryParameters:
-            name:
-                description: Name of the seller
+            nome:
+                description: Nome do vendedor
                 example: João Pedro" 
-                required: true
-                type: string
-            address:
-                description: Adress location
-                example: Rua abcd, 123 
-                required: true
-                type: string
-            phone:
-                description: Phone number
-                example: 48012345678
-                required: true
-                type: integer
-            birthday:
-                description: Birthday date
-                example: 31/05/1990
-                required: true
-                type: string
-            email:
-                description: e-mail adress
-                example: ab@cd.com
                 required: true
                 type: string
             cpf:
@@ -38,8 +18,23 @@ version: v1
                 example: 11111111111
                 required: true
                 type: integer
-            commission_plan:
-                description: Comission Plan
+            endereco:
+                description: Endereço completo
+                example: Rua abcd, 123 
+                required: true
+                type: string
+            idade:
+                description: Idade
+                example: 31
+                required: true
+                type: integer
+            email:
+                description: Endereço de e-mail
+                example: ab@cd.com
+                required: true
+                type: string
+            plano:
+                description: Plano de Comissão
                 example: 1
                 required: true
                 type: integer
@@ -47,24 +42,29 @@ version: v1
           201:
             body:
               application/json:
-                example: { "id": 100 }
+                example: {"id_vendedor": 3,"nome": "Cristian Zatt","cpf": "02379130035","endereco": "Rua X, 33","idade": 23,"email": "cri@gmail.com","plano": 1}
 
-/comissions:
+/api/plano:
     post:
-        description: Register a new comission plan.
+        description: Registrar novo plano de comissão
         queryParameters:
-            lower_percentage:
-                description: smaller percentage, in case the minimun value is not reached
-                example: 2.5
+            descricao:
+                description: Nome ou descrição de um plano
+                example: Plano master grupo X
                 required: true
-                type: number
-            min_value:
-                description: Minimum value for the use of upper percentage
+                type: string
+            valor_minimo:
+                description: Valor mínimo para utilizar a porcentagem máxima
                 example: 5000.00 
                 required: true
                 type: number
-            upper_percentage:
-                description: Bigger percentage in case the min value is reached
+            percent_min:
+                description: Porcentagem mínima, caso o valor mínimo não seja atingido
+                example: 2.5
+                required: true
+                type: number
+            percent_max:
+                description: Porcentagem máxima, caso o valor mínimo seja atingido
                 example: 10.50
                 required: true
                 type: number
@@ -72,44 +72,45 @@ version: v1
           201:
             body:
               application/json:
-                example: { "id": 10 }
+                example: {"id_plano": 2,"descricao": "tyuu","valor_minimo": "300.00","percent_min": "5.00","percent_max": "7.00"}
 
-/month_comission:
+/api/venda:
     post:
-        description: Register the month sell for the seller and return the comission value
+        description: Registra as vendas de um mês de um vendedor
         queryParameters:
-            seller:
-                description: Id from the seller
+            id_vendedor:
+                description: Id do vendedor
                 example: 10
                 required: true
                 type: integer
-            amount:
-                description: Total salles from the month
-                example: 10000.00 
-                required: true
-                type: number
-            month:
-                description: Month being registered
+            mes:
+                description: Mês de registro
                 example: 2
                 required: true
                 type: integer
+            valor:
+                description: Valor total das vendas
+                example: 10000.00 
+                required: true
+                type: number
         responses:
           200:
             body:
               application/json:
-                example: {“id”: 100, “comission”: 300.89}
+                example: {"id_venda": 5,"id_vendedor": 2,"mes": 3,"valor": "1333.00"
+}
 
-/check_commision:
+/api/checar_comissao:
     post:
-        description: Check if the seller should be notifyed for not reaching the expected value of sells 
+        description: Dado o ID de um vendedor o seu último valor de vendas, recupera as vendas dos últimos cinco meses. É então realizado o cálculo da média ponderada levando em consideração as maiores comissões como com o maior peso. Por fim, é realizado um buffer na média de 10% do seu valor, caso este seja menor que o valor base, é retornado que o vendedor deve ser notificado 
         queryParameters:
-            seller:
-                description: Id from the seller
+            vendedor:
+                description: Id do vendedor
                 example: 10
                 required: true
                 type: integer
-            amount:
-                description: Total salles from the month
+            valor:
+                description: Valor total de vendas de um mês
                 example: 1000.65 
                 required: true
                 type: number
@@ -117,13 +118,13 @@ version: v1
           200:
             body:
               application/json:
-                example: {“should_notify”: true}
+                example: {"notificar": True}
 
-/sellers/2:
+/api/comissoes:
     get:
-        description: Get the list of sellers ordered by comission value
+        description: Traz os vendedores do mês organizados pelo valor da comissão
         responses:
           200:
             body:
               application/json:
-                example: [{“name”: “Vendedor1”, “id”: 10, “comission”: 1000.00}, {“name”: “Vendedor2”, “id”: 15, “comission”: 900.00}]
+                example: [{"nome": "João Paulo","id_vendedor": 1,"comissao": 500.0},{"nome": "Pedro Nunes","id_vendedor": 2,"comissao": 35.6}]
