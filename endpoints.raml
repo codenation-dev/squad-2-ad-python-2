@@ -1,7 +1,7 @@
 #%RAML 1.0
 ---
 title: GCT (Gestão de comissões Televendas) API
-baseUri: http://heroku.com/x
+baseUri: https://squad-2-ad-python-2.herokuapp.com
 version: v1
 
 /api/vendedor:
@@ -120,7 +120,7 @@ version: v1
               application/json:
                 example: {"notificar": True}
 
-/api/comissoes:
+/api/comissoes/:
     get:
         description: Traz os vendedores do mês organizados pelo valor da comissão
         responses:
